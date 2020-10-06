@@ -2,7 +2,7 @@
 
 
 
-This codebase contains the [DownmarkerWPF](http://code52.org/DownmarkerWPF/) project, by [Code52](http://code52.org/)
+This codebase is  upgraded version for Windows 10 of [DownmarkerWPF](http://code52.org/DownmarkerWPF/) project, by [Code52](http://code52.org/)
 
 ## About DownmarkerWPF
 
