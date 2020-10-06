@@ -17,8 +17,8 @@ Updates will be installed directly through MarkPad.
 
 ## Dependencies
 
- - Windows 7 (please provide feedback if you encounter issues with Vista, XP or Windows 8)
- - .NET Framework 4.0 (should install if you don't already have it on your machine)
+ - Windows 10
+ - .NET Framework 4.7 (should install if you don't already have it on your machine)
 
 ## Tools required to develop
 
