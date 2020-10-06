@@ -1,51 +1,36 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Threading;
 
 namespace MarkPad.Settings
 {
-    public class FileSystemStorageSettingsStore : JsonSettingsStoreBase
+    public class IsolatedStorageSettingsStore : JsonSettingsStoreBase
     {
-        private object fileLock = new Object();
+        const IsolatedStorageScope Scope = IsolatedStorageScope.Assembly | IsolatedStorageScope.User | IsolatedStorageScope.Roaming;
 
         protected override void WriteTextFile(string filename, string fileContents)
         {
-            
-                lock (fileLock)
-                {
-                    var dir = GetSettingsDirectory();
-                    File.WriteAllText(Path.Combine(dir, filename), fileContents, Encoding.UTF8);
-                }
-            
-
+            using (var isoStore = IsolatedStorageFile.GetStore(Scope, null, null))
+            {
+                using (var stream = new IsolatedStorageFileStream(filename, FileMode.Create, isoStore))
+                    new StreamWriter(stream).Write(fileContents);
+            }
         }
 
         protected override string ReadTextFile(string filename)
         {
-            lock (fileLock)
+            using (var isoStore = IsolatedStorageFile.GetStore(Scope, null, null))
             {
-                var dir = GetSettingsDirectory();
-                var settingsFile = Path.Combine(dir, filename);
-
-                if (!File.Exists(settingsFile))
-                    return null;
-
-                return File.ReadAllText(settingsFile, Encoding.UTF8);
+                if (isoStore.FileExists(filename))
+                {
+                    using (var stream = new IsolatedStorageFileStream(filename, FileMode.Open, isoStore))
+                        return new StreamReader(stream).ReadToEnd();
+                }
             }
 
-        }
-
-        static string GetSettingsDirectory()
-        {
-            var appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            var settingsDir = Path.Combine(appData, "Markpad");
-            Directory.CreateDirectory(settingsDir);
-            return settingsDir;
+            return null;
         }
     }
 

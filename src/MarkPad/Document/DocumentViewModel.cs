@@ -160,7 +160,9 @@ namespace MarkPad.Document
 
                     if (t.IsFaulted)
                     {
-                        var saveResult = (bool?)dispatcher.Invoke(new Action(() =>
+                        var saveResult = false;
+                        
+                        dispatcher.Invoke(new Action(() =>
                        {
                            dialogService.ShowConfirmation(
                                "MarkPad", "Cannot save file",
