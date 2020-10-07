@@ -7,6 +7,7 @@ using System.Windows.Threading;
 using Autofac;
 using Caliburn.Micro;
 using Caliburn.Micro.Autofac;
+using CefSharp;
 using MarkPad.Events;
 using MarkPad.Infrastructure.CaliburnExtensions;
 using MarkPad.Preview;
@@ -49,6 +50,7 @@ namespace MarkPad.Infrastructure
             if (!Debugger.IsAttached)
                 Application.DispatcherUnhandledException += OnUnhandledException;
 
+          
             Application.Exit += OnExit;
         }
 
@@ -79,8 +81,9 @@ namespace MarkPad.Infrastructure
         protected override void OnExit(object sender, EventArgs e)
         {
             jumpList.Dispose();
-
+            Cef.Shutdown();
             base.OnExit(sender, e);
+    
         }
 
         protected override void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
