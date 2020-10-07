@@ -10,10 +10,10 @@ MarkPad (formerly known as DownmarkerWPF) is an editor for [Markdown](http://dar
 
 Our aim is to create a useably, stylish new version of the project utilising Microsoft's WPF technology to provide a fresh UI for creating files that we can use to create blog posts for this, and other blogs using Markdown.
 
+## Build
+[![Build Status](https://dev.azure.com/ingamx/MarkPad/_apis/build/status/r0otChiXor.DownmarkerWPF?branchName=master)](https://dev.azure.com/ingamx/MarkPad/_build/latest?definitionId=1&branchName=master)
 ## Install
-[Nightly](http://ginnivan.blob.core.windows.net/markpadnightly/MarkPad.application) | [Stable](http://ginnivan.blob.core.windows.net/markpadrelease/MarkPad.application)
-
-Updates will be installed directly through MarkPad.
+TBD
 
 ## Dependencies
 
