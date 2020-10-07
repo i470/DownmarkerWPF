@@ -1,8 +1,8 @@
-# DownmarkerWPF
+# MarkPad  WPF .NET 4.7 
 
-[![Build status](https://ci.appveyor.com/api/projects/status/8nyixeikl67jh305/branch/master?svg=true)](https://ci.appveyor.com/project/shiftkey/downmarkerwpf/branch/master)
 
-This codebase contains the [DownmarkerWPF](http://code52.org/DownmarkerWPF/) project, by [Code52](http://code52.org/)
+
+This codebase is  upgraded version for Windows 10 of [DownmarkerWPF](http://code52.org/DownmarkerWPF/) project, by [Code52](http://code52.org/)
 
 ## About DownmarkerWPF
 
@@ -10,15 +10,15 @@ MarkPad (formerly known as DownmarkerWPF) is an editor for [Markdown](http://dar
 
 Our aim is to create a useably, stylish new version of the project utilising Microsoft's WPF technology to provide a fresh UI for creating files that we can use to create blog posts for this, and other blogs using Markdown.
 
+## Build
+[![Build Status](https://dev.azure.com/ingamx/MarkPad/_apis/build/status/r0otChiXor.DownmarkerWPF?branchName=master)](https://dev.azure.com/ingamx/MarkPad/_build/latest?definitionId=1&branchName=master)
 ## Install
-[Nightly](http://ginnivan.blob.core.windows.net/markpadnightly/MarkPad.application) | [Stable](http://ginnivan.blob.core.windows.net/markpadrelease/MarkPad.application)
-
-Updates will be installed directly through MarkPad.
+TBD
 
 ## Dependencies
 
- - Windows 7 (please provide feedback if you encounter issues with Vista, XP or Windows 8)
- - .NET Framework 4.0 (should install if you don't already have it on your machine)
+ - Windows 10
+ - .NET Framework 4.7 (should install if you don't already have it on your machine)
 
 ## Tools required to develop
 
