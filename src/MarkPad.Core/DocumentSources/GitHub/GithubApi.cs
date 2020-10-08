@@ -59,7 +59,7 @@ namespace MarkPad.DocumentSources.GitHub
         public async Task<Post[]> FetchFiles(string user, string repositoryName, string branch, string token)
         {
             var httpClient = new HttpClient();
-            var url = string.Format("/repos/{0}/{1}/branches/{2}", user, repositoryName, branch);
+            var url = string.Format($"/repos/{user}/{repositoryName}/branches/{branch}");
             var respose = await httpClient.GetAsync(GetUrl(url, token));
             
             var json = await respose.Content.ReadAsStringAsync();
@@ -100,8 +100,8 @@ namespace MarkPad.DocumentSources.GitHub
 
         public async Task<string> FetchFileContents(string token, string username, string repository, string sha)
         {
-            var client = new HttpClient();
-            var url = string.Format("/repos/{0}/{1}/git/blobs/{2}", username, repository, sha);
+            HttpClient? client = new HttpClient();
+            var url = string.Format($"/repos/{username}/{repository}/git/blobs/{sha}");
             var restResponse = await client.GetAsync(GetUrl(url, token));
 
             return await GetContent(restResponse);
@@ -132,8 +132,11 @@ namespace MarkPad.DocumentSources.GitHub
         async Task<HttpResponseMessage> FinaliseCommit(string token, string username, string repository, string branch, string shaNewCommit,
                                    HttpClient client)
         {
-            var url = string.Format("/repos/{0}/{1}/git/refs/heads/{2}", username, repository, branch);
-            return await client.PutAsJsonAsync(GetUrl(url, token), new { sha = shaNewCommit});
+            var url = string.Format($"/repos/{username}/{repository}/git/refs/heads/{branch}");
+            
+            
+            dynamic json = JsonConvert.SerializeObject(new { sha = shaNewCommit });
+            return await client.PutAsync(GetUrl(url, token), json);
         }
 
         static async Task<GitCommit> CreateGitCommit(string token, string username, string repository, string shaLatestCommit, GitTree gitTree,
@@ -145,18 +148,26 @@ namespace MarkPad.DocumentSources.GitHub
                 parents = new[] {shaLatestCommit},
                 tree = gitTree.sha
             };
-            var url = string.Format("/repos/{0}/{1}/git/commits", username, repository);
-            var respose = await client.PostAsJsonAsync(GetUrl(url, token), gitCommit);
+            var url = string.Format($"/repos/{username}/{repository}/git/commits");
+
+            dynamic json = JsonConvert.SerializeObject(gitCommit);
+            var respose = await client.PostAsync(GetUrl(url, token), json);
 
             var content = await respose.Content.ReadAsAsync<dynamic>();
             gitCommit.sha = content.sha;
             return gitCommit;
         }
 
+
+
+
         async Task<GitTree> GetGitTree(string token, string username, string repository, GitTree tree, HttpClient client)
         {
-            var url = string.Format("/repos/{0}/{1}/git/trees", username, repository);
-            var respose = await client.PostAsJsonAsync(GetUrl(url, token), tree);
+            var url = string.Format($"/repos/{username}/{repository}/git/trees");
+
+            dynamic json = JsonConvert.SerializeObject(tree);
+
+            var respose = await client.PostAsync(GetUrl(url, token), json);
 
             return await respose.Content.ReadAsAsync<GitTree>();
         }
