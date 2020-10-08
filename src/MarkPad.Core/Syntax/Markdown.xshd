@@ -1,0 +1,25 @@
+﻿<SyntaxDefinition name="Markdown" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Code" foreground="Green" />
+  <Color name="String" foreground="#A4A4A4"  />
+  <Color name="Url" foreground="#A4A4A4"  />
+
+
+  <RuleSet ignoreCase="false">
+    <Span>
+      <Begin color="String">\*</Begin>
+      <End color="String">\*</End>
+    </Span>
+    <Span>
+      <Begin color="Url">\!\[</Begin>
+      <End color="Url">\]</End>
+    </Span>
+    <Span>
+      <Begin color="Url">\[</Begin>
+      <End color="Url">\]</End>
+    </Span>
+    <Span>
+      <Begin color="Url">\(</Begin>
+      <End color="Url">\)</End>
+    </Span>
+  </RuleSet>
+</SyntaxDefinition>
