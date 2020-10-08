@@ -51,7 +51,7 @@ namespace MarkPad.DocumentSources.WebSources
         {
             if (blog.WebSourceType == WebSourceType.MetaWebLog)
             {
-                return TaskEx.Run(() =>
+                return Task.Run(() =>
                 {
                     var categories = document.Categories.ToArray();
                     return CreateOrUpdateMetaWebLogPost(document, categories, blog);
@@ -62,7 +62,7 @@ namespace MarkPad.DocumentSources.WebSources
                 return CreateOrUpdateGithubPost(document.Title, document.MarkdownContent, document.AssociatedFiles, blog);   
             }
 
-            return TaskEx.Run(new Func<SaveResult>(() =>
+            return Task.Run(new Func<SaveResult>(() =>
             {
                 throw BadWebSourceTypeException(blog);
             }));

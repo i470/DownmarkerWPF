@@ -146,7 +146,7 @@ namespace MarkPad.Document
         public Task<bool> Save()
         {
             if (Document.Text == Original)
-                return TaskEx.FromResult(false);
+                return Task.FromResult(false);
 
             MarkpadDocument.MarkdownContent = Document.Text;
 

@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using CefSharp.Wpf;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +10,7 @@ namespace MarkPad.Preview
     {
         public static void Init()
         {
-            CefSharp.CefSettings settings = new CefSharp.CefSettings();
+            CefSettings settings = new CefSettings();
             settings.RegisterScheme(new CefCustomScheme
             {
                 SchemeName = "theme",

@@ -8,7 +8,7 @@ namespace Caliburn.Micro
     using System.Windows;
     using System.Windows.Markup;
     using System.Xml;
-    using DynamicExpression = System.Linq.Dynamic.DynamicExpression;
+
     using Expression = System.Linq.Expressions.Expression;
 
     #endregion
@@ -95,8 +95,8 @@ namespace Caliburn.Micro
                             index++;
                         }
 
-                        var exp = DynamicExpression.ParseLambda(parameters, resultType, expression);
-                        return exp.Compile().DynamicInvoke(values);
+                        //  var exp = DynamicExpression.ParseLambda(parameters, resultType, expression);
+                        return null; //exp.Compile().DynamicInvoke(values);
                     }
                     catch (Exception exc)
                     {

@@ -24,10 +24,10 @@ namespace MarkPad.DocumentSources
             if (blogs == null || blogs.Count == 0)
             {
                 if (!blogService.ConfigureNewBlog("Open from web"))
-                    return TaskEx.FromResult(new OpenDocumentFromWebResult(){Success =  false});
+                    return Task.FromResult(new OpenDocumentFromWebResult(){Success =  false});
                 blogs = blogService.GetBlogs();
                 if (blogs == null || blogs.Count == 0)
-                    return TaskEx.FromResult(new OpenDocumentFromWebResult() { Success = false });
+                    return Task.FromResult(new OpenDocumentFromWebResult() { Success = false });
             }
 
             var openFromWeb = openFromWebViewModelFactory();
@@ -41,7 +41,7 @@ namespace MarkPad.DocumentSources
                                                 SelectedPost = openFromWeb.SelectedPost,
                                                 SelectedBlog = openFromWeb.SelectedBlog
                                             };
-            return TaskEx.FromResult(openDocumentFromWebResult);
+            return Task.FromResult(openDocumentFromWebResult);
         }
     }
 }

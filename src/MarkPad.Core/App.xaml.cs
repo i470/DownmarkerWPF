@@ -11,7 +11,7 @@ namespace MarkPad
 {
     public partial class App : ISingleInstanceApp
     {
-        private const string Unique = "There can be only one MARKPAD!!! (We ignore crappy sequels here)";
+       
 
         private readonly AppBootstrapper bootstrapper;
 
@@ -33,21 +33,6 @@ namespace MarkPad
             }
         }
 
-        [STAThread]
-        public static void Main()
-        {
-            var directoryName = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            if (directoryName != null && Directory.GetCurrentDirectory() != directoryName)
-                Directory.SetCurrentDirectory(directoryName);
-
-            if (SingleInstance<App>.InitializeAsFirstInstance(Unique))
-            {
-                new App().Run();
-
-                // Allow single instance code to perform cleanup operations
-                SingleInstance<App>.Cleanup();
-            }
-        }
 
         public bool SignalExternalCommandLineArgs(IList<string> args)
         {

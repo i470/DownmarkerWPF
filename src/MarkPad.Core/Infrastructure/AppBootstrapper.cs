@@ -31,7 +31,7 @@ namespace MarkPad.Infrastructure
             //  auto subsubscribe event aggregators
             AutoSubscribeEventAggegatorHandlers = true;
 
-            FrameworkExtensions.Message.Attach.AllowXamlSyntax();
+            //FrameworkExtensions.Message.Attach.AllowXamlSyntax();
         }
 
         protected override void ConfigureContainer(ContainerBuilder builder)
@@ -67,13 +67,13 @@ namespace MarkPad.Infrastructure
             Container.Resolve<IEventAggregator>().Publish(new AppReadyEvent());
 
             // Handle the original arguments from the first run of this app.
-            var activationArguments = AppDomain.CurrentDomain.SetupInformation.ActivationArguments;
-            if (activationArguments == null || activationArguments.ActivationData == null)
-                ((App)Application).HandleArguments(Environment.GetCommandLineArgs());
-            else
-            {
-                ((App)Application).HandleArguments(activationArguments.ActivationData);
-            }
+           // var activationArguments = AppDomain.CurrentDomain.SetupInformation.ActivationArguments;
+            //if (activationArguments == null || activationArguments.ActivationData == null)
+            //    ((App)Application).HandleArguments(Environment.GetCommandLineArgs());
+            //else
+            //{
+             //   ((App)Application).HandleArguments(activationArguments.ActivationData);
+            //}
         }
                 
         protected override void OnExit(object sender, EventArgs e)

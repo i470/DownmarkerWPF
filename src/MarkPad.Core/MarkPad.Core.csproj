@@ -7,6 +7,14 @@
     <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
     <CefSharpAnyCpuSupport>true</CefSharpAnyCpuSupport>
+    <NoWin32Manifest>true</NoWin32Manifest>
+    <ApplicationIcon>Assets\markpad.ico</ApplicationIcon>
+    <StartupObject>MarkPad.App</StartupObject>
+    </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>false</Optimize>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
 
 
@@ -20,7 +28,9 @@
     <PackageReference Include="Caliburn.Micro.Autofac" Version="1.5.0" />
     <PackageReference Include="CefSharp.Wpf" Version="84.4.10" />
     <PackageReference Include="MahApps.Metro" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.7" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="NHunspell" Version="1.2.5554.16953" />
     <PackageReference Include="Ookii.Dialogs.Wpf.NETCore" Version="2.1.0" />
     <PackageReference Include="System.Runtime" Version="4.3.1" />
@@ -30,6 +40,24 @@
   <ItemGroup>
     <ProjectReference Include="..\MarkdownDeep.Core\MarkdownDeep.Core.csproj" />
     <ProjectReference Include="..\MarkPad.Plugins.Core\MarkPad.Plugins.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </ApplicationDefinition>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="App.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Update="ShellView.xaml">
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Page>
   </ItemGroup>
 
 </Project>

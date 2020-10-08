@@ -80,7 +80,7 @@ namespace MarkPad.DocumentSources.GitHub
                     return DocumentFactory.PublishDocument(null, this);
             }
 
-            return TaskEx.FromResult<IMarkpadDocument>(this);
+            return Task.FromResult<IMarkpadDocument>(this);
         }
 
         public override FileReference SaveImage(Bitmap image)

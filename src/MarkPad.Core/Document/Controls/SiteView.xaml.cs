@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MarkPad.DocumentSources;
 using MarkPad.Plugins;
-using Microsoft.Expression.Interactivity.Core;
+using Microsoft.Xaml.Behaviors.Core;
 
 namespace MarkPad.Document.Controls
 {

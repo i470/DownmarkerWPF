@@ -6,8 +6,10 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 using MarkPad.DocumentSources.MetaWeblog.Service;
 using MarkPad.Settings.Models;
+using Newtonsoft.Json;
 
 namespace MarkPad.DocumentSources.GitHub
 {
@@ -42,12 +44,14 @@ namespace MarkPad.DocumentSources.GitHub
         public async Task<BlogInfo[]> FetchBranches(string token, string user, string repositoryName)
         {
             var httpClient = new HttpClient();
-            var url = string.Format("/repos/{0}/{1}/branches", user, repositoryName);
+
+            string? url = string.Format($"/repos/{user}/{repositoryName}/branches");
             var respose = await httpClient.GetAsync(GetUrl(url, token));
             if (respose.StatusCode != HttpStatusCode.OK)
-                throw new Exception(string.Format("Unable to fetch branches: {0}", respose.ReasonPhrase));
+                throw new Exception(message: string.Format($"Unable to fetch branches: {respose.ReasonPhrase}"));
 
-            var result = await respose.Content.ReadAsAsync<List<GitBranch>>();
+            var json = await respose.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<List<GitBranch>>(json);
 
             return result.Select(r => new BlogInfo { blogid = r.name, blogName = r.name }).ToArray();
         }
@@ -57,12 +61,17 @@ namespace MarkPad.DocumentSources.GitHub
             var httpClient = new HttpClient();
             var url = string.Format("/repos/{0}/{1}/branches/{2}", user, repositoryName, branch);
             var respose = await httpClient.GetAsync(GetUrl(url, token));
-            var result = await respose.Content.ReadAsAsync<dynamic>();
+            
+            var json = await respose.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<dynamic>(json);
 
             var treeUrl = TreeUrl(result);
 
             respose = await httpClient.GetAsync(new Uri(treeUrl, UriKind.Absolute));
-            var tree = await respose.Content.ReadAsAsync<GitTree>();
+
+
+            var tree_json = await respose.Content.ReadAsStringAsync();
+            var tree = JsonConvert.DeserializeObject<dynamic>(tree_json);
 
             return ToPosts(tree);
         }
@@ -156,7 +165,12 @@ namespace MarkPad.DocumentSources.GitHub
         {
             var url = string.Format("/repos/{0}/{1}/git/commits/{2}", username, repository, shaLatestCommit);
             var result = await client.GetAsync(GetUrl(url, token));
-            var baseTreeResult = await result.Content.ReadAsAsync<dynamic>();
+
+            var json = await result.Content.ReadAsStringAsync();
+            var baseTreeResult = JsonConvert.DeserializeObject<dynamic>(json);
+
+
+            //var baseTreeResult = await result.Content.ReadAsAsync<dynamic>();
             return baseTreeResult.tree.sha;
         }
 
@@ -164,13 +178,20 @@ namespace MarkPad.DocumentSources.GitHub
         {
             var url = string.Format("/repos/{0}/{1}/git/refs/heads/{2}", username, repository, branch);
             var response = await client.GetAsync(GetUrl(url, token));
-            var refResult = await response.Content.ReadAsAsync<dynamic>();
+
+            var json = await response.Content.ReadAsStringAsync();
+            var refResult = JsonConvert.DeserializeObject<dynamic>(json);
+
+           // var refResult = await response.Content.ReadAsAsync<dynamic>();
             return refResult.@object.sha;
         }
 
         static async Task<string> GetContent(HttpResponseMessage result)
         {
-            var deserializeObject = await result.Content.ReadAsAsync<dynamic>();
+            var json = await result.Content.ReadAsStringAsync();
+            var deserializeObject = JsonConvert.DeserializeObject<dynamic>(json);
+
+
             if (deserializeObject.encoding == "utf-8")
                 return deserializeObject.content;
 
@@ -190,7 +211,7 @@ namespace MarkPad.DocumentSources.GitHub
 
         private static string GetUrl(string path, string accessToken)
         {
-            return string.Format("{0}/{1}?access_token={2}", ApiBaseUrl.TrimEnd('/'), path.TrimStart('/'), accessToken);
+            return string.Format($"{ApiBaseUrl.TrimEnd('/')}/{path.TrimStart('/')}?access_token={accessToken}");
         }
     }
 }
