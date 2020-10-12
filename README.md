@@ -1,6 +1,6 @@
 # MarkPad  WPF .NET 4.7 
 
-
+![App View](https://github.com/r0otChiXor/DownmarkerWPF/blob/master/assets/image_2020-10-12_102147.png)
 
 This codebase is  upgraded version for Windows 10 of [DownmarkerWPF](http://code52.org/DownmarkerWPF/) project, by [Code52](http://code52.org/)
 
@@ -43,4 +43,4 @@ Feeling like writing some code? Why not take the next [step](http://code52.org/c
 
 The team will then review the changes, discuss if anything needs to be addressed, and integrate your changes back into the application.
 
-![App View](https://github.com/r0otChiXor/DownmarkerWPF/blob/master/assets/image_2020-10-12_101716.png)
+
