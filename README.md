@@ -42,3 +42,5 @@ Feeling like writing some code? Why not take the next [step](http://code52.org/c
  - Send a pull request once you're happy with it
 
 The team will then review the changes, discuss if anything needs to be addressed, and integrate your changes back into the application.
+
+![App View](https://github.com/r0otChiXor/DownmarkerWPF/blob/master/assets/image_2020-10-12_101716.png)
